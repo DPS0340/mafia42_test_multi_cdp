@@ -25,7 +25,6 @@ from .protocol import (
     MSG_AUTH_DENIED,
     MSG_AUTH_OK,
     MSG_HEARTBEAT,
-    MSG_HELLO_ACK,
     MSG_INIT_DATA,
     MSG_INIT_REPLY,
     MSG_MEGAPHONE,
