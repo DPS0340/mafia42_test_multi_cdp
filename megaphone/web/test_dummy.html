@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mafia42 확성기 모니터 — 테스트 (더미 데이터)</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #0f0f23; overflow: hidden; }
+</style>
+</head>
+<body>
+<!-- 테스트 모드: 더미 데이터 + 시뮬레이션 -->
+<megaphone-monitor mode="test" id="monitor"
+  speed="200"
+  max-buffer="500"
+  channels='[{"id":0,"name":"초보"},{"id":1,"name":"1채널"},{"id":2,"name":"2채널"},{"id":3,"name":"3채널"},{"id":20,"name":"20세이상"},{"id":42,"name":"마피아42"},{"id":142,"name":"랭크"}]'>
+</megaphone-monitor>
+
+<!-- Web Component 로드 (CSS, DOM, API, 시뮬레이션 로직 모두 포함) -->
+<script src="megaphone-monitor.js"></script>
+</body>
+</html>

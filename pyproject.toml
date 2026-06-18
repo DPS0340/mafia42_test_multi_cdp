@@ -1,0 +1,11 @@
+# pytest 설정은 pytest.ini 로 일원화한다 (pytest.ini 가 pyproject 보다 우선하므로
+# 여기 두면 "ignoring pyproject" 경고가 떴다). ruff 설정만 여기서 관리.
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+# 실수성 버그 위주로만 검사한다 (E9: 구문 오류, F: pyflakes 미정의/미사용 등).
+# 스타일 규칙으로 CI가 과하게 빨개지지 않도록 보수적으로 선택.
+select = ["E9", "F", "W6"]

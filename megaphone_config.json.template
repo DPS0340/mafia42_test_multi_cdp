@@ -1,0 +1,12 @@
+{
+  "_comment": "Mafia42 Megaphone Monitor config. Copy to megaphone_config.json and edit.",
+  "token": "",
+  "selected_channels": null,
+  "ws_port": 53421,
+  "cdp_port": 9222,
+  "web_port": 8080,
+  "capture_timeout": 120,
+  "heartbeat_interval": 3,
+  "reconnect_min": 5,
+  "reconnect_max": 60
+}

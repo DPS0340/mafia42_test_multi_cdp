@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python --version)",
+      "PowerShell($json = Get-Content \"C:\\\\Users\\\\kitae\\\\Desktop\\\\mafia\\\\messages_dump.json\" -Raw -Encoding utf8; $data = $json | ConvertFrom-Json; \"총 메시지 수: $\\($data.Count\\)\"; \"마지막 5개:\"; $data | Select-Object -Last 5 | ForEach-Object { \"  [$\\($_.sender\\)] $\\($_.message\\)\" })"
+    ]
+  }
+}

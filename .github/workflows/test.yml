@@ -1,0 +1,74 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/tests
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Run unit tests
+        run: |
+          pytest tests/ -v --tb=short -m "unit" -q || [ $? -eq 5 ]
+
+      - name: Run integration tests
+        run: |
+          pytest tests/ -v --tb=short -m "integration" -q
+
+      - name: Run all non-DOM tests
+        run: |
+          pytest tests/ -v --tb=short -q -m "not dom"
+
+  dom-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/tests
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Install Playwright browsers
+        run: |
+          playwright install chromium --with-deps
+
+      - name: Run DOM tests
+        run: |
+          pytest tests/ -v --tb=short -m "dom" -q

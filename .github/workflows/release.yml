@@ -1,0 +1,32 @@
+name: Release
+
+# 이 도구는 배포할 서버가 아니라 로컬 실행 도구이므로, "CD"는 v* 태그를 푸시하면
+# 소스를 zip 으로 묶어 GitHub Release 를 만드는 형태로 구성한다.
+#   git tag v1.0.0 && git push origin v1.0.0
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build source archive
+        run: |
+          mkdir -p dist
+          git archive --format=zip --prefix="mafia42-megaphone-${GITHUB_REF_NAME}/" \
+            -o "dist/mafia42-megaphone-${GITHUB_REF_NAME}.zip" HEAD
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "dist/mafia42-megaphone-${GITHUB_REF_NAME}.zip" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes

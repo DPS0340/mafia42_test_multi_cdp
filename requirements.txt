@@ -1,0 +1,2 @@
+# Runtime dependency only. Dev/test deps live in requirements-dev.txt.
+websocket-client>=1.6
